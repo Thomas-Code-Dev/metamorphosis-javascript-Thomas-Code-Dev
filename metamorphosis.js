@@ -62,6 +62,8 @@ function dragStartHandler(e) {
     deferredOriginChanges(this, 'drag-feedback');
 }
 
+  
+
 /**
  * While dragging is active we can do something
  */
@@ -139,7 +141,7 @@ function dropZoneDropHandler(e) {
  * Highlight all drop zones or remove highlight
  */
 function setDropZonesHighlight(highlight = true) {
-    const dropZones = document.querySelectorAll(".drop-zone");
+    const dropZones = document.querySelectorAll(".card-slot");
     for (const dropZone of dropZones) {
         if (highlight) {
             dropZone.classList.add("active-zone");
