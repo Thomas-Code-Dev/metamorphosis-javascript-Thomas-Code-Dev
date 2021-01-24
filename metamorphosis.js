@@ -4,9 +4,13 @@ function initDragAndDrop() {
     shuffleCards();
     // Initialize drag & drop elements here
     let draggables = document.querySelectorAll(".card");
-    let dropZones = document.querySelectorAll(".card-slot");
+    let dropZones = document.querySelectorAll(".mixed-cards .card-slot");
+    let dropZonesFrog = document.querySelectorAll(".frog-slots .card-slot");
+    let dropZonesButterfly = document.querySelectorAll(".butterfly-slots .card-slot");
     initDraggables(draggables);
     initDropZones(dropZones);
+    initDropZones(dropZonesFrog);
+    initDropZones(dropZonesButterfly);
 }
 
 
@@ -87,8 +91,10 @@ function dragEndHandler() {
 function dropZoneEnterHandler(e) {
     // we can only check the data transfer type, not the value for security reasons
     // https://www.w3.org/TR/html51/editing.html#drag-data-store-mode
+    let draggedElement = document.querySelector('.dragged');
     if (e.dataTransfer.types.includes('type/dragged-box')) {
-        this.classList.add("over-zone");
+        if(e.target.getAttribute('data-boxtype') ==  draggedElement.getAttribute('data-appendto') || e.target.getAttribute('data-boxtype') == "general"){
+        this.classList.add("over-zone");}
         // The default action of this event is to set the dropEffect to "none" this way
         // the drag operation would be disallowed here we need to prevent that
         // if we want to allow the dragged element to be drop here
@@ -103,7 +109,8 @@ function dropZoneEnterHandler(e) {
  * still allowed to drop an element here
  */
 function dropZoneOverHandler(e) {
-    if (e.dataTransfer.types.includes('type/dragged-box')) {
+    // if (e.dataTransfer.types.includes('type/dragged-box')) 
+    if (e.dataTransfer.types.includes('type/dragged-box')){
         // The default action is similar as above, we need to prevent it
         e.preventDefault();
     }
@@ -129,7 +136,11 @@ function dropZoneDropHandler(e) {
     // We have checked in the "dragover" handler (dropZoneOverHandler) if it is allowed
     // to drop here, so it should be ok to move the element without further checks
     let draggedElement = document.querySelector('.dragged');
-    e.currentTarget.appendChild(draggedElement);
+    // if(e.target.getAttribute('data-boxtype') ==  document.getElementById("1/1").getAttribute('data-appendto')){
+    //     e.target.appendChild(document.getElementById("1/1"))}
+    if(e.target.getAttribute('data-boxtype') ==  draggedElement.getAttribute('data-appendto') || e.target.getAttribute('data-boxtype') == "general"){
+        e.target.appendChild(draggedElement)}
+    // e.currentTarget.appendChild(draggedElement);
 
     // We  drop default action (eg. move selected text)
     // default actions detailed here:
