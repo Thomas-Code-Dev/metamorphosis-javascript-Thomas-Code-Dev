@@ -32,7 +32,8 @@ function initDraggable(draggable) {
     draggable.addEventListener("dragend", dragEndHandler);
 
     // set draggable elements to draggable
-    draggable.setAttribute("draggable", "true");
+    // draggable.setAttribute("draggable", "true");
+    draggable.setAttribute("card", "true");
 }
 
 /**
@@ -114,7 +115,8 @@ function dropZoneOverHandler(e) {
 function dropZoneLeaveHandler(e) {
     if (e.dataTransfer.types.includes('type/dragged-box') &&
         e.relatedTarget !== null &&
-        e.currentTarget !== e.relatedTarget.closest('.drop-zone')) {
+        // e.currentTarget !== e.relatedTarget.closest('.drop-zone')) {
+        e.currentTarget !== e.relatedTarget.closest('.card-slot')) {
         // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/relatedTarget
         this.classList.remove("over-zone");
     }
