@@ -91,6 +91,18 @@ body {
     margin: 14px;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
+.great {
+    font-size: 50px;
+    marker: inherit;
+    background-color: lawngreen;
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+}
 
 /* .drag-feedback {
     background: lightskyblue;

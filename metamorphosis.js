@@ -1,4 +1,5 @@
 initDragAndDrop();
+var score = 0;
 
 function initDragAndDrop() {
     shuffleCards();
@@ -94,7 +95,8 @@ function dropZoneEnterHandler(e) {
     let draggedElement = document.querySelector('.dragged');
     if (e.dataTransfer.types.includes('type/dragged-box')) {
         if(e.target.getAttribute('data-boxtype') ==  draggedElement.getAttribute('data-appendto') || e.target.getAttribute('data-boxtype') == "general"){
-        this.classList.add("over-zone");}
+        this.classList.add("over-zone");
+        }
         // The default action of this event is to set the dropEffect to "none" this way
         // the drag operation would be disallowed here we need to prevent that
         // if we want to allow the dragged element to be drop here
@@ -141,7 +143,18 @@ function dropZoneDropHandler(e) {
     // if(e.target.getAttribute('data-boxtype') ==  document.getElementById("1/1").getAttribute('data-appendto')){
     //     e.target.appendChild(document.getElementById("1/1"))}
     if(e.target.getAttribute('data-boxtype') ==  draggedElement.getAttribute('data-appendto') || e.target.getAttribute('data-boxtype') == "general"){
-        e.target.appendChild(draggedElement)}
+        e.target.appendChild(draggedElement);}
+    if(e.target.getAttribute('id') ==  draggedElement.getAttribute('imgnumber')){
+        score ++;
+        console.log(score);
+    if (score == 8) {console.log("Congratulations, you win the game!");
+    let victoryZone = document.getElementById("victory");
+    victoryZone.classList.remove("hidden");
+    victoryZone.classList.add("great");
+    setInterval(function() {
+        victoryZone.style.display = (victoryZone.style.display == 'none' ? '' : 'none');
+    }, 1000);
+}}
     // e.currentTarget.appendChild(draggedElement);
 
     // We  drop default action (eg. move selected text)
