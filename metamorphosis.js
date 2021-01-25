@@ -4,7 +4,7 @@ function initDragAndDrop() {
     shuffleCards();
     // Initialize drag & drop elements here
     let draggables = document.querySelectorAll(".card");
-    let dropZones = document.querySelectorAll(".mixed-cards .card-slot");
+    let dropZones = document.querySelectorAll(".mixed-cards");
     let dropZonesFrog = document.querySelectorAll(".frog-slots .card-slot");
     let dropZonesButterfly = document.querySelectorAll(".butterfly-slots .card-slot");
     initDraggables(draggables);
@@ -123,7 +123,9 @@ function dropZoneLeaveHandler(e) {
     if (e.dataTransfer.types.includes('type/dragged-box') &&
         e.relatedTarget !== null &&
         // e.currentTarget !== e.relatedTarget.closest('.drop-zone')) {
-        e.currentTarget !== e.relatedTarget.closest('.card-slot')) {
+        e.currentTarget !== e.relatedTarget.closest('.card-slot') ||
+        e.currentTarget !== e.relatedTarget.closest('.mixed-cards')) 
+         {
         // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/relatedTarget
         this.classList.remove("over-zone");
     }
@@ -155,6 +157,7 @@ function dropZoneDropHandler(e) {
  */
 function setDropZonesHighlight(highlight = true) {
     const dropZones = document.querySelectorAll(".card-slot");
+    const dropZoneDeck = document.getElementById("deck");
     for (const dropZone of dropZones) {
         if (highlight) {
             dropZone.classList.add("active-zone");
@@ -162,6 +165,12 @@ function setDropZonesHighlight(highlight = true) {
             dropZone.classList.remove("active-zone");
             dropZone.classList.remove("over-zone");
         }
+    }
+    if (highlight) {
+        dropZoneDeck.classList.add("active-zone");
+    } else {
+        dropZoneDeck.classList.remove("active-zone");
+        dropZoneDeck.classList.remove("over-zone");
     }
 }
 
