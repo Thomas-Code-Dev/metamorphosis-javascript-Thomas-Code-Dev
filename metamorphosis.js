@@ -145,16 +145,28 @@ function dropZoneDropHandler(e) {
     if(e.target.getAttribute('data-boxtype') ==  draggedElement.getAttribute('data-appendto') || e.target.getAttribute('data-boxtype') == "general"){
         e.target.appendChild(draggedElement);}
     if(e.target.getAttribute('id') ==  draggedElement.getAttribute('imgnumber')){
-        score ++;
-        console.log(score);
-    if (score == 8) {console.log("Congratulations, you win the game!");
-    let victoryZone = document.getElementById("victory");
-    victoryZone.classList.remove("hidden");
-    victoryZone.classList.add("great");
+        if (draggedElement.classList == "card dragged"){
+            draggedElement.classList.add('well-placed');
+            score ++;
+            console.log(score);}
+        console.log(draggedElement.classList);
+        if (score == 8) {console.log("Congratulations, you win the game!");
+        let victoryZone = document.getElementById("victory");
+        victoryZone.classList.remove("hidden");
+        victoryZone.classList.add("great");
     setInterval(function() {
         victoryZone.style.display = (victoryZone.style.display == 'none' ? '' : 'none');
     }, 1000);
-}}
+    }
+    }
+    else {
+        if (draggedElement.classList == "card dragged well-placed" || draggedElement.classList == "card well-placed dragged"){
+            draggedElement.classList.remove('well-placed');
+            score --;
+            console.log(score);}
+        console.log(draggedElement.classList);
+    }
+
     // e.currentTarget.appendChild(draggedElement);
 
     // We  drop default action (eg. move selected text)
